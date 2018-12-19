@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_item">
+
+    <ImageView
+        android:id="@+id/imgMoviePict"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        tools:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/disini_judul" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imgMoviePict"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        tools:text="@string/title"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imgMoviePict"
+        android:layout_below="@id/tvTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_centerVertical="true"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        tools:text="@string/description"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imgMoviePict"
+        android:layout_below="@+id/tvDescription"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        tools:text="@string/date"
+        tools:ignore="RtlHardcoded" />
+</RelativeLayout>

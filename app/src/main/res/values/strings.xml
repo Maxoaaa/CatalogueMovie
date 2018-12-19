@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">CatalogueMovie</string>
     <string name="desk_screen">gambar logo</string>
+    <string name="findIt">Find</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="disini_judul">disini judul</string>
 </resources>
