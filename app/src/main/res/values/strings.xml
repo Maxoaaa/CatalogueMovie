@@ -7,4 +7,8 @@
     <string name="description">Description</string>
     <string name="date">Date</string>
     <string name="disini_judul">disini judul</string>
+    <string name="poster">poster</string>
+    <string name="tanggal">29-10-2017</string>
+    <string name="overview">Overview</string>
+    <string name="overview_content">Overview Content</string>
 </resources>

@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/et_judul"
+            android:id="@+id/txtJudul"
             android:layout_width="236dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.9"
@@ -37,7 +37,7 @@
             tools:ignore="Autofill" />
 
         <Button
-            android:id="@+id/btn_cari"
+            android:id="@+id/btnFind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
