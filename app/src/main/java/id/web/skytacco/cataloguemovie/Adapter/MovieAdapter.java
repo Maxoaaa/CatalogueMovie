@@ -1,5 +1,6 @@
 package id.web.skytacco.cataloguemovie.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -24,7 +25,6 @@ public class MovieAdapter extends BaseAdapter {
     private ArrayList<MovieItem> miawData = new ArrayList<>();
     private LayoutInflater mInflater;
     private Context context;
-    private String deskripsi_final;
 
     public MovieAdapter(Context context) {
         this.context    = context;
@@ -69,9 +69,10 @@ public class MovieAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.list_movie, null);
@@ -86,6 +87,7 @@ public class MovieAdapter extends BaseAdapter {
         holder.txtTitle.setText(miawData.get(position).getMovie_title());
         //proses menangkap Deskripsi pada movie
         String overview = miawData.get(position).getMovie_description();
+        String deskripsi_final;
         if(TextUtils.isEmpty(overview)){
             deskripsi_final = "No Have a Description";
         }else{
@@ -96,18 +98,19 @@ public class MovieAdapter extends BaseAdapter {
 
         //proses untuk menangkap  Date
         String ambilDate = miawData.get(position).getMovie_date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd-MMMMM-yyyy",new Locale("in", "ID"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",new Locale("in", "ID"));
         try {
             Date date = dateFormat.parse(ambilDate);
 
-            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy", new Locale("in","ID"));
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy",new Locale("in", "ID"));
             String date_of_release = newDateFormat.format(date);
             holder.txtDate.setText(date_of_release);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //holder.txtDate.setText(miawData.get(position).getDescription());
+        //holder.txtDate.setText(miawData.get(position).getMovie_date());
+        //holder.txtDate.setText(ambilDate);
 
         //proses untuk memunculkan gambar dgn ukuran w154
         Picasso.get().load("http://image.tmdb.org/t/p/w154/"+

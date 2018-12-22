@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_weight="0.1"
-            android:background="@drawable/latar_button"
             android:text="@string/findIt"
             android:textColor="@color/colorWhite" />
     </LinearLayout>

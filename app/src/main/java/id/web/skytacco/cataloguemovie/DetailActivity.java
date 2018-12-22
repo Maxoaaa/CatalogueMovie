@@ -1,11 +1,12 @@
 package id.web.skytacco.cataloguemovie;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,9 +17,6 @@ public class DetailActivity extends AppCompatActivity {
     public static String EXTRA_OVERVIEW = "extra_overview";
     public static String EXTRA_DATE = "extra_date_release";
     public static String EXTRA_IMAGE = "extra_image_movie";
-
-    private TextView txtTitle, txtOverview, txtDate;
-    private ImageView imgPoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +30,13 @@ public class DetailActivity extends AppCompatActivity {
         String datee = getIntent().getStringExtra(EXTRA_DATE);
 
 
-        txtTitle = findViewById(R.id.txtMovieTitle);
-        txtOverview = findViewById(R.id.TxtOverviewContent);
-        txtDate = findViewById(R.id.txtDate);
-        imgPoster = findViewById(R.id.imgposter);
+        TextView txtTitle = findViewById(R.id.txtMovieTitle);
+        TextView txtOverview = findViewById(R.id.TxtOverviewContent);
+        TextView txtDate = findViewById(R.id.txtDate);
+        ImageView imgPoster = findViewById(R.id.imgposter);
 
         //Format Date Release
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd-MMMMM-yyyy",new Locale("in", "ID"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",new Locale("in", "ID"));
         try {
             Date date = dateFormat.parse(datee);
 

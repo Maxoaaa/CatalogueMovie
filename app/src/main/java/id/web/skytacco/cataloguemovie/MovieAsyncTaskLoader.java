@@ -19,7 +19,7 @@ public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
     private boolean mHasResult = false;
     private String mMovieTitle;
 
-    public MovieAsyncTaskLoader(final Context context, String MovieTitle) {
+    MovieAsyncTaskLoader(final Context context, String MovieTitle) {
         super(context);
         onContentChanged();
         this.mMovieTitle = MovieTitle;
