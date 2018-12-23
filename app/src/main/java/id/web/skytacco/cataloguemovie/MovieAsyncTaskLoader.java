@@ -53,7 +53,7 @@ public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
         // untuk simple List<> tidak dilakukan apa-apa.
         // seperti Cursor, harus ditutup disini
     //}
-    private static final String API_KEY = "23dd87e3bee02912925aa93845f265de";
+    private static final String API_KEY = BuildConfig.TMDB_API_KEY;
     @Override
     public ArrayList<MovieItem> loadInBackground() {
         SyncHttpClient client = new SyncHttpClient();
