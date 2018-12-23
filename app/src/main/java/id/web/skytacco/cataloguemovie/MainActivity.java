@@ -17,13 +17,41 @@ import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieAdapter;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>>  {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
+    static final String EXTRAS_MOVIE = "EXTRAS_MOVIE";
     ListView listView;
     EditText txtJudul;
     ImageView imgPoster;
     Button btnFind;
     MovieAdapter adapter;
-    static final String EXTRAS_MOVIE = "EXTRAS_MOVIE";
+    View.OnClickListener mvListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String movieTitle = txtJudul.getText().toString();
+            if (TextUtils.isEmpty(movieTitle)) {
+                return;
+            }
+
+            Bundle mbundle = new Bundle();
+            mbundle.putString(EXTRAS_MOVIE, movieTitle);
+            getSupportLoaderManager().restartLoader(0, mbundle, MainActivity.this);
+        }
+    };
+    AdapterView.OnItemClickListener lvListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            MovieItem item = (MovieItem) parent.getItemAtPosition(position);
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+
+            intent.putExtra(DetailActivity.EXTRA_TITLE, item.getMovie_title());
+            intent.putExtra(DetailActivity.EXTRA_OVERVIEW, item.getMovie_description());
+            intent.putExtra(DetailActivity.EXTRA_DATE, item.getMovie_date());
+            intent.putExtra(DetailActivity.EXTRA_IMAGE, item.getMovie_image());
+
+            startActivity(intent);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-//run MovieAsyncTaskLoader
+    //run MovieAsyncTaskLoader
     @Override
     public Loader<ArrayList<MovieItem>> onCreateLoader(int i, Bundle args) {
         String movies = "";
@@ -58,39 +86,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         return new MovieAsyncTaskLoader(this, movies);
     }
-//dipanggil saat proses load sudah selesai
+
+    //dipanggil saat proses load sudah selesai
     @Override
     public void onLoadFinished(Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> mdata) {
         adapter.setData(mdata);
     }
-//dipanggil saat loader direset
+
+    //dipanggil saat loader direset
     @Override
     public void onLoaderReset(Loader<ArrayList<MovieItem>> loader) {
         adapter.setData(null);
     }
-    View.OnClickListener mvListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String movieTitle = txtJudul.getText().toString();
-            if(TextUtils.isEmpty(movieTitle)){ return; }
-
-            Bundle mbundle = new Bundle();
-            mbundle.putString(EXTRAS_MOVIE, movieTitle);
-            getSupportLoaderManager().restartLoader(0, mbundle, MainActivity.this);
-        }
-    };
-    AdapterView.OnItemClickListener lvListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-            MovieItem item = (MovieItem)parent.getItemAtPosition(position);
-            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-
-            intent.putExtra(DetailActivity.EXTRA_TITLE, item.getMovie_title());
-            intent.putExtra(DetailActivity.EXTRA_OVERVIEW, item.getMovie_description());
-            intent.putExtra(DetailActivity.EXTRA_DATE, item.getMovie_date());
-            intent.putExtra(DetailActivity.EXTRA_IMAGE, item.getMovie_image());
-
-            startActivity(intent);
-        }
-    };
 }

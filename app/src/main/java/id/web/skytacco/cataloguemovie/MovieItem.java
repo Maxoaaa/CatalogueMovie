@@ -8,7 +8,7 @@ public class MovieItem {
     private String movie_date;
     private String movie_image;
 
-    MovieItem(JSONObject object){
+    MovieItem(JSONObject object) {
         try {
 
             String title = object.getString("title");
@@ -17,11 +17,11 @@ public class MovieItem {
             String image = object.getString("poster_path");
 
             this.movie_title = title;
-            this.movie_description= description;
+            this.movie_description = description;
             this.movie_date = datei;
             this.movie_image = image;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -38,7 +38,9 @@ public class MovieItem {
         return movie_description;
     }
 
-    public void setMovie_description(String movie_description) { this.movie_description = movie_description; }
+    public void setMovie_description(String movie_description) {
+        this.movie_description = movie_description;
+    }
 
     public String getMovie_date() {
         return movie_date;

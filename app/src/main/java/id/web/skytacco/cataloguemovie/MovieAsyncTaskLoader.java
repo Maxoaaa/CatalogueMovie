@@ -3,7 +3,6 @@ package id.web.skytacco.cataloguemovie;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
@@ -15,6 +14,11 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
+    //private void onReleaseResources(ArrayList<MovieItem> miawData) {
+    // untuk simple List<> tidak dilakukan apa-apa.
+    // seperti Cursor, harus ditutup disini
+    //}
+    private static final String API_KEY = BuildConfig.TMDB_API_KEY;
     private ArrayList<MovieItem> miawData;
     private boolean mHasResult = false;
     private String mMovieTitle;
@@ -24,6 +28,7 @@ public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
         onContentChanged();
         this.mMovieTitle = MovieTitle;
     }
+
     //data nya mulai diloading/diproses
     @Override
     protected void onStartLoading() {
@@ -49,18 +54,14 @@ public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
             mHasResult = false;
         }
     }
-    //private void onReleaseResources(ArrayList<MovieItem> miawData) {
-        // untuk simple List<> tidak dilakukan apa-apa.
-        // seperti Cursor, harus ditutup disini
-    //}
-    private static final String API_KEY = BuildConfig.TMDB_API_KEY;
+
     @Override
     public ArrayList<MovieItem> loadInBackground() {
         SyncHttpClient client = new SyncHttpClient();
 
         final ArrayList<MovieItem> Banyak_Items = new ArrayList<>();
         String url = "https://api.themoviedb.org/3/search/movie?api_key=" +
-                API_KEY+"&language=en-US&query="+mMovieTitle;
+                API_KEY + "&language=en-US&query=" + mMovieTitle;
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -70,6 +71,7 @@ public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
                 //method loadInBackground mengembalikan nilai balikan
                 setUseSynchronousMode(true);
             }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -77,12 +79,12 @@ public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
                     JSONObject responseObject = new JSONObject(result);
                     JSONArray list = responseObject.getJSONArray("results");
 
-                    for (int i = 0 ; i < list.length() ; i++){
+                    for (int i = 0; i < list.length(); i++) {
                         JSONObject mv = list.getJSONObject(i);
                         MovieItem movieItems = new MovieItem(mv);
                         Banyak_Items.add(movieItems);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

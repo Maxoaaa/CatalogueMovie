@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#3399FF"
     android:orientation="vertical">
-<!--android:background="#cddc39"-->
+    <!--android:background="#cddc39"-->
 
 
     <ImageView
@@ -31,6 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
 </android.support.constraint.ConstraintLayout>

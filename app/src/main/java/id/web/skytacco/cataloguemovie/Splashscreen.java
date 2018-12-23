@@ -1,9 +1,9 @@
 package id.web.skytacco.cataloguemovie;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -26,6 +26,7 @@ public class Splashscreen extends AppCompatActivity {
                 startActivity(i);
                 this.finish();
             }
+
             private void finish() {
             }
         }, splashInterval);

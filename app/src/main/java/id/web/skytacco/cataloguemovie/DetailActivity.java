@@ -36,12 +36,12 @@ public class DetailActivity extends AppCompatActivity {
         ImageView imgPoster = findViewById(R.id.imgposter);
 
         //Format Date Release
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",new Locale("in", "ID"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("in", "ID"));
         try {
             Date date = dateFormat.parse(datee);
 
             //SimpleDateFormat newDateFormat = new SimpleDateFormat("EEEE, MMM dd, yyyy", new Locale("in","ID"));
-            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy", new Locale("in","ID"));
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy", new Locale("in", "ID"));
             String dateee = newDateFormat.format(date);
             txtDate.setText(dateee);
 

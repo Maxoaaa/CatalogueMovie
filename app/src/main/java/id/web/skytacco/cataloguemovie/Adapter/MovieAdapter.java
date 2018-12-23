@@ -27,18 +27,21 @@ public class MovieAdapter extends BaseAdapter {
     private Context context;
 
     public MovieAdapter(Context context) {
-        this.context    = context;
-        mInflater       = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = context;
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-    public void setData(ArrayList<MovieItem> items){
+
+    public void setData(ArrayList<MovieItem> items) {
         miawData = items;
         notifyDataSetChanged();
     }
+
     public void addItem(final MovieItem item) {
         miawData.add(item);
         notifyDataSetChanged();
     }
-    public void clearData(){
+
+    public void clearData() {
         miawData.clear();
     }
 
@@ -88,9 +91,9 @@ public class MovieAdapter extends BaseAdapter {
         //proses menangkap Deskripsi pada movie
         String overview = miawData.get(position).getMovie_description();
         String deskripsi_final;
-        if(TextUtils.isEmpty(overview)){
+        if (TextUtils.isEmpty(overview)) {
             deskripsi_final = "No Have a Description";
-        }else{
+        } else {
             deskripsi_final = overview;
         }
         holder.txtDescription.setText(deskripsi_final);
@@ -98,11 +101,11 @@ public class MovieAdapter extends BaseAdapter {
 
         //proses untuk menangkap  Date
         String ambilDate = miawData.get(position).getMovie_date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",new Locale("in", "ID"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("in", "ID"));
         try {
             Date date = dateFormat.parse(ambilDate);
 
-            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy",new Locale("in", "ID"));
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy", new Locale("in", "ID"));
             String date_of_release = newDateFormat.format(date);
             holder.txtDate.setText(date_of_release);
 
@@ -113,7 +116,7 @@ public class MovieAdapter extends BaseAdapter {
         //holder.txtDate.setText(ambilDate);
 
         //proses untuk memunculkan gambar dgn ukuran w154
-        Picasso.get().load("http://image.tmdb.org/t/p/w154/"+
+        Picasso.get().load("http://image.tmdb.org/t/p/w154/" +
                 miawData.get(position).getMovie_image())
                 .placeholder(context.getResources().getDrawable(R.mipmap.ic_launcher2_round))
                 .error(context.getResources().getDrawable(R.mipmap.ic_launcher2_round))
@@ -121,6 +124,7 @@ public class MovieAdapter extends BaseAdapter {
 
         return convertView;
     }
+
     private static class ViewHolder {
         TextView txtTitle;
         TextView txtDescription;
