@@ -2,6 +2,7 @@ package id.web.skytacco.cataloguemovie;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     //run MovieAsyncTaskLoader
+    @NonNull
     @Override
     public Loader<ArrayList<MovieItem>> onCreateLoader(int i, Bundle args) {
         String movies = "";
@@ -89,13 +91,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     //dipanggil saat proses load sudah selesai
     @Override
-    public void onLoadFinished(Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> mdata) {
+    public void onLoadFinished(@NonNull Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> mdata) {
         adapter.setData(mdata);
     }
 
     //dipanggil saat loader direset
     @Override
-    public void onLoaderReset(Loader<ArrayList<MovieItem>> loader) {
+    public void onLoaderReset(@NonNull Loader<ArrayList<MovieItem>> loader) {
         adapter.setData(null);
     }
 }
