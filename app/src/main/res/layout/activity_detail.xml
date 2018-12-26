@@ -51,7 +51,7 @@
             android:text="@string/overview"
             android:textSize="18sp" />
 
-        <me.biubiubiu.justifytext.library.JustifyTextView
+        <com.codesgood.views.JustifiedTextView
             android:id="@+id/TxtOverviewContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
