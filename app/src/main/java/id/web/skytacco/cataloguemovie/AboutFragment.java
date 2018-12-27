@@ -13,24 +13,21 @@ import android.view.ViewGroup;
 
 import static android.content.ContentValues.TAG;
 
-public class UpComingFragment extends Fragment {
+public class AboutFragment extends Fragment {
     public static final String EXTRAS = "extras";
-
-
-    public UpComingFragment() {
-    }
+    public AboutFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_up_coming, container, false);
+        return inflater.inflate(R.layout.fragment_about, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -40,5 +37,4 @@ public class UpComingFragment extends Fragment {
             Log.e(TAG, "onCreateView: halaman fragment " + page);
         }
     }
-
 }

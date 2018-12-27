@@ -14,8 +14,8 @@
     <string name="title_activity_navigation">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Kalong (Katalog Movie Ngabest)</string>
+    <string name="nav_header_subtitle">Realth99@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -23,4 +23,14 @@
     <string name="hello_blank_fragment2">Hello blank fragment2</string>
     <string name="search">search</string>
     <string name="search_hint">Title Movie</string>
+    <string name="support">Support</string>
+    <string name="about">About</string>
+    <string name="share">Share</string>
+    <string name="home">Home</string>
+
+    <string name="now_playing">Now Playing</string>
+    <string name="upcoming">Up Coming</string>
+    <string name="image_movie">image movie</string>
+    <string name="favorite">favorite</string>
+    <string name="image_poster">Image Poster</string>
 </resources>

@@ -3,28 +3,22 @@ package id.web.skytacco.cataloguemovie;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.SearchView;
-import android.view.View;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        NowPlayingFragment.OnFragmentInteractionListener,
-        UpComingFragment.OnFragmentInteractionListener {
-    static final String EXTRAS_MOVIE = "EXTRAS_MOVIE";
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +27,16 @@ public class NavigationActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+/*        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
         if (savedInstanceState == null){
-            Fragment currentFragment = new NowPlayingFragment();
+            Fragment currentFragment = new HomeFragment();
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.content_main,currentFragment)
@@ -82,10 +76,6 @@ public class NavigationActivity extends AppCompatActivity
                 public boolean onQueryTextSubmit(String query) {
                     Toast.makeText(NavigationActivity.this, query, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
-                    Bundle mbundle = new Bundle();
-                    mbundle.putString("EXTRAS_MOVIEE", query);
-                    intent.putExtras(mbundle);
-
                     intent.putExtra(MainActivity.EXTRAS_MOVIE, query);
 
                     startActivity(intent);
@@ -118,28 +108,34 @@ public class NavigationActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Bundle bundle = new Bundle();
         Fragment fragment = null;
-
-        if (id == R.id.nav_camera) {
-            fragment = new NowPlayingFragment();
-        } else if (id == R.id.nav_gallery) {
+        String title = "";
+        if (id == R.id.nav_home) {
+            title = "Home";
+            fragment = new HomeFragment();
+            bundle.putString(NowPlayingFragment.EXTRAS, title);
+            fragment.setArguments(bundle);
+        } else if (id == R.id.nav_search) {
+            title = "Search";
             fragment = new UpComingFragment();
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+            bundle.putString(NowPlayingFragment.EXTRAS, title);
+            fragment.setArguments(bundle);
         } else if (id == R.id.nav_share) {
+            title = "Catalogue Movie";
             Intent si = new Intent(android.content.Intent.ACTION_SEND);
             si.setType("text/plain");
             si.putExtra(android.content.Intent.EXTRA_SUBJECT, "Handoyo Oficial");
             si.putExtra(android.content.Intent.EXTRA_TEXT, "Dapatkan Informasi tentang Aplikasi Lainnya. Kunjungi https://skytacco.web.id/ \n atau hubungi email REALTH99@GMAIL.COM");
             startActivity(Intent.createChooser(si, "Share via"));
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_about) {
+            title = "About Us";
+            fragment = new AboutFragment();
+            bundle.putString(AboutFragment.EXTRAS, title);
+            fragment.setArguments(bundle);
         }
         if (fragment != null) {
             getSupportFragmentManager()
@@ -147,14 +143,11 @@ public class NavigationActivity extends AppCompatActivity
                     .replace(R.id.content_main, fragment)
                     .commit();
         }
-
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(title);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }
