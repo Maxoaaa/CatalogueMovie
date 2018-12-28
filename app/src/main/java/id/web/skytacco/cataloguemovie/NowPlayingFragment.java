@@ -51,7 +51,7 @@ public class NowPlayingFragment extends Fragment {
         rvCategory = view.findViewById(R.id.rv_category);
         rvCategory.setHasFixedSize(true);
         showRecyclerList();
-        movieLists = new ArrayList<MovieItem>();
+        movieLists = new ArrayList<>();
         ambilDataAPI();
         return view;
     }
