@@ -2,36 +2,24 @@ package id.web.skytacco.cataloguemovie;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
+import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MvComingAsyncTaskLoader;
+import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MvNowAsyncTaskLoader;
 
-import static android.content.ContentValues.TAG;
-
-public class NowPlayingFragment extends Fragment {
+public class NowPlayingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>>{
     public static final String EXTRAS = "extras";
-    private static final String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + BuildConfig.TMDB_API_KEY + "&language=en-US";
+    private static final String url = "now_playing";
     private RecyclerView rvCategory;
     private RecyclerView.Adapter adapter;
     private ArrayList<MovieItem> movieLists;
@@ -50,67 +38,27 @@ public class NowPlayingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
         rvCategory = view.findViewById(R.id.rv_category);
         rvCategory.setHasFixedSize(true);
-        showRecyclerList();
-        movieLists = new ArrayList<>();
-        ambilDataAPI();
+        rvCategory.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        getActivity().getSupportLoaderManager().initLoader(0, null, this);
         return view;
+    }
+    @NonNull
+    @Override
+    public Loader<ArrayList<MovieItem>> onCreateLoader(int i, Bundle args) {
+        return new MvComingAsyncTaskLoader(getContext(),url);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (getArguments() != null) {
-            String page = getArguments().getString(EXTRAS);
-
-            Log.e(TAG, "onCreateView: halaman fragment " + page);
-        }
+    public void onLoadFinished(@NonNull Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> mdata) {
+        //pgsBar.setVisibility(View.GONE);
+        rvCategory.setAdapter(new MovieRvAdapter(mdata, getContext()));
     }
 
-    private void showRecyclerList() {
-        rvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
+    @Override
+    public void onLoaderReset(@NonNull Loader<ArrayList<MovieItem>> loader) {
+        // pgsBar.setVisibility(View.GONE);
+        rvCategory.setAdapter(null);
     }
-
-    private void ambilDataAPI() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject responseObject = new JSONObject(response);
-                    JSONArray list = responseObject.getJSONArray("results");
-
-                    for (int i = 0; i < list.length(); i++) {
-                        JSONObject mv = list.getJSONObject(i);
-                        MovieItem movieItems = new MovieItem(mv);
-
-                        movieItems.setMovie_title(mv.getString("title"));
-                        movieItems.setMovie_description(mv.getString("overview"));
-                        movieItems.setMovie_date(mv.getString("release_date"));
-                        movieItems.setMovie_image(mv.getString("poster_path"));
-                        movieLists.add(movieItems);
-                    }
-
-                    adapter = new MovieRvAdapter(movieLists, getActivity());
-                    rvCategory.setAdapter(adapter);
-
-                } catch (JSONException e) {
-
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                Toast.makeText(getActivity(), "Error" + error.toString(), Toast.LENGTH_SHORT).show();
-                //ambilDataAPI();
-
-            }
-        });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
-    }
-
 
 }
