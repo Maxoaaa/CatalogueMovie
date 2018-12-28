@@ -13,7 +13,9 @@ import static android.content.ContentValues.TAG;
 
 public class AboutFragment extends Fragment {
     public static final String EXTRAS = "extras";
-    public AboutFragment() { }
+
+    public AboutFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class AboutFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_about, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

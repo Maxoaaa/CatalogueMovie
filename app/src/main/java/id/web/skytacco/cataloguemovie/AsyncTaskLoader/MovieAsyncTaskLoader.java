@@ -17,10 +17,6 @@ import id.web.skytacco.cataloguemovie.MovieItem;
 
 
 public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
-    //private void onReleaseResources(ArrayList<MovieItem> miawData) {
-    // untuk simple List<> tidak dilakukan apa-apa.
-    // seperti Cursor, harus ditutup disini
-    //}
     private static final String API_KEY = BuildConfig.TMDB_API_KEY;
     private ArrayList<MovieItem> miawData;
     private boolean mHasResult = false;

@@ -31,10 +31,10 @@ import static android.content.ContentValues.TAG;
 
 public class NowPlayingFragment extends Fragment {
     public static final String EXTRAS = "extras";
+    private static final String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + BuildConfig.TMDB_API_KEY + "&language=en-US";
     private RecyclerView rvCategory;
     private RecyclerView.Adapter adapter;
     private ArrayList<MovieItem> movieLists;
-    private static final String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + BuildConfig.TMDB_API_KEY + "&language=en-US";
 
     public NowPlayingFragment() {
     }
@@ -55,6 +55,7 @@ public class NowPlayingFragment extends Fragment {
         ambilDataAPI();
         return view;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -64,9 +65,11 @@ public class NowPlayingFragment extends Fragment {
             Log.e(TAG, "onCreateView: halaman fragment " + page);
         }
     }
-    private void showRecyclerList(){
+
+    private void showRecyclerList() {
         rvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
+
     private void ambilDataAPI() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {

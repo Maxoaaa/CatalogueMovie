@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -27,19 +28,11 @@ public class NavigationActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-/*        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             Fragment currentFragment = new HomeFragment();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content_main,currentFragment)
+                    .replace(R.id.content_main, currentFragment)
                     .commit();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -81,6 +74,7 @@ public class NavigationActivity extends AppCompatActivity
                     startActivity(intent);
                     return true;
                 }
+
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     return false;
@@ -93,23 +87,17 @@ public class NavigationActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         Bundle bundle = new Bundle();
         Fragment fragment = null;
@@ -119,11 +107,11 @@ public class NavigationActivity extends AppCompatActivity
             fragment = new HomeFragment();
             bundle.putString(NowPlayingFragment.EXTRAS, title);
             fragment.setArguments(bundle);
-        } else if (id == R.id.nav_search) {
+       /* } else if (id == R.id.nav_search) {
             title = "Search";
             fragment = new UpComingFragment();
             bundle.putString(NowPlayingFragment.EXTRAS, title);
-            fragment.setArguments(bundle);
+            fragment.setArguments(bundle);*/
         } else if (id == R.id.nav_share) {
             title = "Catalogue Movie";
             Intent si = new Intent(android.content.Intent.ACTION_SEND);

@@ -19,9 +19,27 @@ public class HomeFragment extends Fragment {
     public static final String EXTRAS = "extras";
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    TabLayout.OnTabSelectedListener TlListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            viewPager.setCurrentItem(tab.getPosition());
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    };
+
     public HomeFragment() {
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +63,7 @@ public class HomeFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(TlListener);
         return view;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -54,28 +73,15 @@ public class HomeFragment extends Fragment {
             Log.e(TAG, "onCreateView: halaman fragment " + page);
         }
     }
-    TabLayout.OnTabSelectedListener TlListener= new TabLayout.OnTabSelectedListener() {
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            viewPager.setCurrentItem(tab.getPosition());
-        }
 
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-
-        }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-
-        }
-    };
     public class RedAdapter extends FragmentPagerAdapter {
         private String tnow_playing = getResources().getString(R.string.now_playing);
         private String tupcoming = getResources().getString(R.string.upcoming);
         private final String tabs[] = {tnow_playing, tupcoming};
 
-        RedAdapter(FragmentManager fm) { super(fm); }
+        RedAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
         @Override
         public Fragment getItem(int position) {
@@ -94,6 +100,8 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
-        public CharSequence getPageTitle(int position) { return tabs[position]; }
+        public CharSequence getPageTitle(int position) {
+            return tabs[position];
+        }
     }
 }

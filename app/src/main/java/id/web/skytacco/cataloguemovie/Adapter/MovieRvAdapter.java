@@ -35,6 +35,7 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
         this.movieLists = movieLists;
         this.context = context;
     }
+
     @NonNull
     @Override
     public MovieRvAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,33 +61,27 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
         }
 
         Picasso.get()
-                .load("http://image.tmdb.org/t/p/w154/"+itemList.getMovie_image())
+                .load("http://image.tmdb.org/t/p/w154/" + itemList.getMovie_image())
                 .placeholder(R.mipmap.ic_launcher2_round)
                 .into(holder.poster);
 
-        holder.btnFavorite.setOnClickListener(new ItemClickSupport(position, new ItemClickSupport.OnItemClickCallback()
-        {
+        holder.btnFavorite.setOnClickListener(new ItemClickSupport(position, new ItemClickSupport.OnItemClickCallback() {
             @Override
-            public void onItemClicked(View view, int position)
-            {
+            public void onItemClicked(View view, int position) {
                 Toast.makeText(context, "Favorite Success: ", Toast.LENGTH_SHORT).show();
             }
         }));
 
-        holder.btnShare.setOnClickListener(new ItemClickSupport(position, new ItemClickSupport.OnItemClickCallback()
-        {
+        holder.btnShare.setOnClickListener(new ItemClickSupport(position, new ItemClickSupport.OnItemClickCallback() {
             @Override
-            public void onItemClicked(View view, int position)
-            {
-                Toast.makeText(context, "Share:" +itemList.getMovie_title(), Toast.LENGTH_SHORT).show();
+            public void onItemClicked(View view, int position) {
+                Toast.makeText(context, "Share:" + itemList.getMovie_title(), Toast.LENGTH_SHORT).show();
             }
         }));
 
-        holder.cv_selected.setOnClickListener(new View.OnClickListener()
-        {
+        holder.cv_selected.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 MovieItem itemFilmList = movieLists.get(position);
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra(DetailActivity.EXTRA_TITLE, itemFilmList.getMovie_title());
@@ -102,11 +97,12 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
     public int getItemCount() {
         return movieLists.size();
     }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         //init view objects use butterknife lib
         TextView title, description, date;
         ImageView poster;
-        Button btnFavorite,btnShare;
+        Button btnFavorite, btnShare;
         ConstraintLayout cv_selected;
 
         ViewHolder(View view) {

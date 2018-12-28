@@ -79,10 +79,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Bundle mbundle = new Bundle();
         Bundle beva = getIntent().getExtras();
         String abe = beva.getString(EXTRAS_MOVIE);
-        if (movieTitle != null && !EXTRAS_MOVIE.equals("EXTRAS_MOVIE")){
+        if (movieTitle != null && !EXTRAS_MOVIE.equals("EXTRAS_MOVIE")) {
             mbundle.putString(EXTRAS_MOVIE, movieTitle);
-        }
-        else {
+        } else {
             mbundle.putString(EXTRAS_MOVIE, abe);
         }
         //inisialisasi dari loader masuk onCreate
