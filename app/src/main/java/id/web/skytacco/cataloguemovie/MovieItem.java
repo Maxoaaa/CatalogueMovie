@@ -8,7 +8,7 @@ public class MovieItem {
     private String movie_date;
     private String movie_image;
 
-    MovieItem(JSONObject object) {
+    public MovieItem(JSONObject object) {
         try {
 
             String title = object.getString("title");

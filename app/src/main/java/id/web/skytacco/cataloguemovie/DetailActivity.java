@@ -1,6 +1,7 @@
 package id.web.skytacco.cataloguemovie;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,14 +27,13 @@ public class DetailActivity extends AppCompatActivity {
         //get intent
         String title = getIntent().getStringExtra(EXTRA_TITLE);
         String overview = getIntent().getStringExtra(EXTRA_OVERVIEW);
-        String image = getIntent().getStringExtra(EXTRA_IMAGE);
+        final String image = getIntent().getStringExtra(EXTRA_IMAGE);
         String datee = getIntent().getStringExtra(EXTRA_DATE);
-
 
         TextView txtTitle = findViewById(R.id.txtMovieTitle);
         TextView txtOverview = findViewById(R.id.TxtOverviewContent);
         TextView txtDate = findViewById(R.id.txtDate);
-        ImageView imgPoster = findViewById(R.id.imgposter);
+        final ImageView imgPoster = findViewById(R.id.imgposter);
 
         //Format Date Release
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("in", "ID"));
@@ -52,6 +52,10 @@ public class DetailActivity extends AppCompatActivity {
         //pass value using set function
         txtTitle.setText(title);
         txtOverview.setText(overview);
-        Picasso.get().load("http://image.tmdb.org/t/p/original/" + image).into(imgPoster);
+        Picasso.get().load("http://image.tmdb.org/t/p/original/" + image)
+                .placeholder(R.mipmap.ic_launcher2_round)
+                .error(R.mipmap.ic_launcher2_round)
+                .into(imgPoster);
+
     }
 }

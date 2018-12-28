@@ -1,4 +1,4 @@
-package id.web.skytacco.cataloguemovie;
+package id.web.skytacco.cataloguemovie.AsyncTaskLoader;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
@@ -12,6 +12,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import id.web.skytacco.cataloguemovie.BuildConfig;
+import id.web.skytacco.cataloguemovie.MovieItem;
+
 
 public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
     //private void onReleaseResources(ArrayList<MovieItem> miawData) {
@@ -23,7 +26,7 @@ public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
     private boolean mHasResult = false;
     private String mMovieTitle;
 
-    MovieAsyncTaskLoader(final Context context, String MovieTitle) {
+    public MovieAsyncTaskLoader(final Context context, String MovieTitle) {
         super(context);
         onContentChanged();
         this.mMovieTitle = MovieTitle;

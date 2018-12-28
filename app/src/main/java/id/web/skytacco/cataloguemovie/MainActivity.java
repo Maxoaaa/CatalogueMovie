@@ -2,6 +2,7 @@ package id.web.skytacco.cataloguemovie;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieAdapter;
+import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MovieAsyncTaskLoader;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
     static final String EXTRAS_MOVIE = "EXTRAS_MOVIE";
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     EditText txtJudul;
     ImageView imgPoster;
     Button btnFind;
+    ProgressBar pgsBar;
     MovieAdapter adapter;
     View.OnClickListener mvListener = new View.OnClickListener() {
         @Override
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        pgsBar = findViewById(R.id.pgsBar);
+        pgsBar.setVisibility(View.GONE);
         adapter = new MovieAdapter(this);
         adapter.notifyDataSetChanged();
         listView = findViewById(R.id.lvMovie);
@@ -71,15 +77,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         listView.setOnItemClickListener(lvListener);
         Bundle mbundle = new Bundle();
-        mbundle.putString(EXTRAS_MOVIE, movieTitle);
+        Bundle beva = getIntent().getExtras();
+        String abe = beva.getString(EXTRAS_MOVIE);
+        if (movieTitle != null && !EXTRAS_MOVIE.equals("EXTRAS_MOVIE")){
+            mbundle.putString(EXTRAS_MOVIE, movieTitle);
+        }
+        else {
+            mbundle.putString(EXTRAS_MOVIE, abe);
+        }
         //inisialisasi dari loader masuk onCreate
         getSupportLoaderManager().initLoader(0, mbundle, this);
 
     }
 
     //run MovieAsyncTaskLoader
+    @NonNull
     @Override
     public Loader<ArrayList<MovieItem>> onCreateLoader(int i, Bundle args) {
+        pgsBar.setVisibility(View.VISIBLE);
         String movies = "";
         if (args != null) {
             movies = args.getString(EXTRAS_MOVIE);
@@ -89,13 +104,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     //dipanggil saat proses load sudah selesai
     @Override
-    public void onLoadFinished(Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> mdata) {
+    public void onLoadFinished(@NonNull Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> mdata) {
+        pgsBar.setVisibility(View.GONE);
         adapter.setData(mdata);
     }
 
     //dipanggil saat loader direset
     @Override
-    public void onLoaderReset(Loader<ArrayList<MovieItem>> loader) {
+    public void onLoaderReset(@NonNull Loader<ArrayList<MovieItem>> loader) {
+        pgsBar.setVisibility(View.GONE);
         adapter.setData(null);
     }
 }
