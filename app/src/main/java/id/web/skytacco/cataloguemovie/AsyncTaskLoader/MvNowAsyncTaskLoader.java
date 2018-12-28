@@ -21,6 +21,7 @@ public class MvNowAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
     private String urli;
     private ArrayList<MovieItem> miawData;
     private boolean mHasResult = false;
+
     public MvNowAsyncTaskLoader(@NonNull Context context, String url) {
         super(context);
         onContentChanged();
@@ -58,7 +59,7 @@ public class MvNowAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> 
         SyncHttpClient client = new SyncHttpClient();
 
         final ArrayList<MovieItem> Banyak_Items = new ArrayList<>();
-        String url = "https://api.themoviedb.org/3/movie/"+urli+"?api_key=" + API_KEY + "&language=en-US";
+        String url = "https://api.themoviedb.org/3/movie/" + urli + "?api_key=" + API_KEY + "&language=en-US";
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
