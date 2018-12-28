@@ -19,8 +19,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hello_blank_fragment2">Hello blank fragment2</string>
     <string name="search">Pencarian</string>
     <string name="search_hint">Judul Film</string>
     <string name="support">Dukungan</string>
@@ -32,6 +30,5 @@
     <string name="upcoming">Akan Datang</string>
     <string name="image_movie">Gambar Film</string>
     <string name="favorite">Suka</string>
-    <string name="image_poster">Gambar Poster</string>
     <string name="desc_about">Anda sedang mencari film ang menarik dibioskop dan mulai mencarinya, tetapi Anda akan terlambat, Anda akan pergi bekerja atau ke tempat atau ke pertemuan penting? Tanpa panik: Kalong adalah solusi untuk Anda! Temukan daftar "Film untuk ditonton" di aplikasi, dan dari sana Anda dapat menemukannya kapan saja: di malam hari, di akhir pekan, selama waktu luang, sendirian dan bersama teman.</string>
 </resources>
