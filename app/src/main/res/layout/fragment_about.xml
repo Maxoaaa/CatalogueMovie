@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".AboutFragment"
     tools:ignore="MissingDefaultResource">
 
@@ -19,5 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/overview_content" />
+        android:layout_marginTop="16dp"
+        android:text="@string/desc_about" />
 </LinearLayout>
