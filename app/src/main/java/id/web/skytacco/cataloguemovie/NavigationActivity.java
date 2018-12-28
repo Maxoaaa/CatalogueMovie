@@ -103,7 +103,7 @@ public class NavigationActivity extends AppCompatActivity
         Fragment fragment = null;
         String title = "";
         if (id == R.id.nav_home) {
-            title = "Home";
+            title = getResources().getString(R.string.home);
             fragment = new HomeFragment();
             bundle.putString(NowPlayingFragment.EXTRAS, title);
             fragment.setArguments(bundle);
@@ -113,14 +113,14 @@ public class NavigationActivity extends AppCompatActivity
             bundle.putString(NowPlayingFragment.EXTRAS, title);
             fragment.setArguments(bundle);*/
         } else if (id == R.id.nav_share) {
-            title = "Catalogue Movie";
+            title = getResources().getString(R.string.share);
             Intent si = new Intent(android.content.Intent.ACTION_SEND);
             si.setType("text/plain");
             si.putExtra(android.content.Intent.EXTRA_SUBJECT, "Handoyo Oficial");
             si.putExtra(android.content.Intent.EXTRA_TEXT, "Dapatkan Informasi tentang Aplikasi Lainnya. Kunjungi https://skytacco.web.id/ \n atau hubungi email REALTH99@GMAIL.COM");
             startActivity(Intent.createChooser(si, "Share via"));
         } else if (id == R.id.nav_about) {
-            title = "About Us";
+            title = getResources().getString(R.string.about);
             fragment = new AboutFragment();
             bundle.putString(AboutFragment.EXTRAS, title);
             fragment.setArguments(bundle);

@@ -88,7 +88,6 @@ public class NowPlayingFragment extends Fragment {
                         movieItems.setMovie_date(mv.getString("release_date"));
                         movieItems.setMovie_image(mv.getString("poster_path"));
                         movieLists.add(movieItems);
-
                     }
 
                     adapter = new MovieRvAdapter(movieLists, getActivity());
