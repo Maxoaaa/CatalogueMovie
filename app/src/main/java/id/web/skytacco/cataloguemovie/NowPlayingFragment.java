@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
+import id.web.skytacco.cataloguemovie.Model.MovieItem;
 
 import static android.content.ContentValues.TAG;
 

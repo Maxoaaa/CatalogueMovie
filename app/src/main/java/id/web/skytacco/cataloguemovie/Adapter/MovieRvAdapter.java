@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import id.web.skytacco.cataloguemovie.DetailActivity;
 import id.web.skytacco.cataloguemovie.Listener.ItemClickSupport;
-import id.web.skytacco.cataloguemovie.MovieItem;
+import id.web.skytacco.cataloguemovie.Model.MovieItem;
 import id.web.skytacco.cataloguemovie.R;
 
 public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHolder> {

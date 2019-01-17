@@ -4,6 +4,8 @@
     package="id.web.skytacco.cataloguemovie">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="id.web.skytacco.cataloguemovie.READ_DATABASE" android:protectionLevel="normal" />
+    <permission android:name="id.web.skytacco.cataloguemovie.WRITE_DATABASE" android:protectionLevel="normal" />
 
     <application
         android:allowBackup="false"
@@ -34,6 +36,12 @@
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
+        <provider
+            android:authorities="id.web.skytacco.cataloguemovie"
+            android:name=".Provider.MovieProvider"
+            android:exported="true"
+            android:readPermission="id.web.skytacco.cataloguemovie.READ_DATABASE"
+            android:writePermission="id.web.skytacco.cataloguemovie.WRITE_DATABASE" />
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import id.web.skytacco.cataloguemovie.MovieItem;
+import id.web.skytacco.cataloguemovie.Model.MovieItem;
 import id.web.skytacco.cataloguemovie.R;
 
 public class MovieAdapter extends BaseAdapter {

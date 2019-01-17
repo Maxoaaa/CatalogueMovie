@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieAdapter;
 import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MovieAsyncTaskLoader;
+import id.web.skytacco.cataloguemovie.Model.MovieItem;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
     static final String EXTRAS_MOVIE = "EXTRAS_MOVIE";
