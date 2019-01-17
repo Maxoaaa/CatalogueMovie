@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import id.web.skytacco.cataloguemovie.BuildConfig;
-import id.web.skytacco.cataloguemovie.Model.MovieItem;
+import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 
 
 public class MovieAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {

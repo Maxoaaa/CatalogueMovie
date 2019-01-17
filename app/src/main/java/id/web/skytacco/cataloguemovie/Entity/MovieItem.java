@@ -1,4 +1,4 @@
-package id.web.skytacco.cataloguemovie.Model;
+package id.web.skytacco.cataloguemovie.Entity;
 
 import org.json.JSONObject;
 
