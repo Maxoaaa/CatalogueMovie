@@ -24,21 +24,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
-import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 
 import static android.content.ContentValues.TAG;
 
-public class NowPlayingFragment extends Fragment {
+public class UpComingFragment5 extends Fragment {
     public static final String EXTRAS = "extras";
-    private static final String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + BuildConfig.TMDB_API_KEY + "&language=en-US";
+    private static final String url = "https://api.themoviedb.org/3/movie/upcoming?api_key=" + BuildConfig.TMDB_API_KEY + "&language=en-US";
     private RecyclerView rvCategory;
     private RecyclerView.Adapter adapter;
     private ArrayList<MovieItem> movieLists;
 
-    public NowPlayingFragment() {
+    public UpComingFragment5() {
     }
 
     @Override
@@ -49,7 +47,7 @@ public class NowPlayingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
+        View view = inflater.inflate(R.layout.fragment_up_coming, container, false);
         rvCategory = view.findViewById(R.id.rv_category);
         rvCategory.setHasFixedSize(true);
         showRecyclerList();
@@ -73,7 +71,6 @@ public class NowPlayingFragment extends Fragment {
     }
 
     private void ambilDataAPI() {
-        //progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
@@ -91,27 +88,28 @@ public class NowPlayingFragment extends Fragment {
                         movieItems.setMovie_date(mv.getString("release_date"));
                         movieItems.setMovie_image(mv.getString("poster_path"));
                         movieLists.add(movieItems);
+
                     }
 
                     adapter = new MovieRvAdapter(movieLists, getActivity());
                     rvCategory.setAdapter(adapter);
 
                 } catch (JSONException e) {
+
                     e.printStackTrace();
                 }
-                //progressBar.setVisibility(View.GONE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Error, No Internet Connection Access", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getActivity(), "Error" + error.toString(), Toast.LENGTH_SHORT).show();
                 //ambilDataAPI();
-                //progressBar.setVisibility(View.GONE);
 
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()));
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
     }
 

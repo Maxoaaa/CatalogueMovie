@@ -1,6 +1,5 @@
 package id.web.skytacco.cataloguemovie;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,37 +14,30 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
-import id.web.skytacco.cataloguemovie.Entity.MovieItem;
-import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MovieComingAsyncTaskLoader;
+import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MvNowAsyncTaskLoader;
 
-public class UpComingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
+public class NowPlayingFragment2 extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
     public static final String EXTRAS = "extras";
-    private static final String url = "upcoming";
-    private RecyclerView rvCategory;
+    private static final String url = "now_playing";
+    private RecyclerView rvCategoryy;
+    private RecyclerView.Adapter adapter;
     private ArrayList<MovieItem> movieLists;
-    private Activity activity;
 
-    public UpComingFragment() {
+    public NowPlayingFragment2() {
     }
 
-    /*    @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-            activity = getActivity();
-        }*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getActivity().getSupportLoaderManager().restartLoader(0, null, this);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_up_coming, container, false);
-        rvCategory = view.findViewById(R.id.rv_category2);
-        rvCategory.setHasFixedSize(true);
-        rvCategory.setLayoutManager(new LinearLayoutManager(getContext()));
+        View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
+        rvCategoryy = view.findViewById(R.id.rv_category);
+        rvCategoryy.setHasFixedSize(true);
+        rvCategoryy.setLayoutManager(new LinearLayoutManager(getContext()));
 
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
         return view;
@@ -54,18 +46,19 @@ public class UpComingFragment extends Fragment implements LoaderManager.LoaderCa
     @NonNull
     @Override
     public Loader<ArrayList<MovieItem>> onCreateLoader(int i, Bundle args) {
-        return new MvComingAsyncTaskLoader(getContext(), url);
+        return new MvNowAsyncTaskLoader(getContext(), url);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<MovieItem>> loader, ArrayList<MovieItem> mdata) {
         //pgsBar.setVisibility(View.GONE);
-        rvCategory.setAdapter(new MovieRvAdapter(mdata, getContext()));
+        rvCategoryy.setAdapter(new MovieRvAdapter(mdata, getContext()));
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<MovieItem>> loader) {
         // pgsBar.setVisibility(View.GONE);
-        rvCategory.setAdapter(null);
+        rvCategoryy.setAdapter(null);
     }
+
 }

@@ -36,6 +36,15 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
         this.context = context;
     }
 
+    public ArrayList<MovieItem> getData() {
+        return movieLists;
+    }
+
+    public void setData(ArrayList<MovieItem> items) {
+        this.movieLists = items;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MovieRvAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
