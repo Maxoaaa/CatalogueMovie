@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
 import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MvNowAsyncTaskLoader;
+import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 
 public class NowPlayingFragment2 extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
     public static final String EXTRAS = "extras";

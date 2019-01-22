@@ -15,11 +15,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
-<<<<<<<<< Temporary merge branch 1
-import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MvComingAsyncTaskLoader;
-=========
+import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MvNowAsyncTaskLoader;
 import id.web.skytacco.cataloguemovie.Entity.MovieItem;
->>>>>>>>> Temporary merge branch 2
 
 public class UpComingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
     public static final String EXTRAS = "extras";
@@ -57,7 +54,7 @@ public class UpComingFragment extends Fragment implements LoaderManager.LoaderCa
     @NonNull
     @Override
     public Loader<ArrayList<MovieItem>> onCreateLoader(int i, Bundle args) {
-        return new MvComingAsyncTaskLoader(getContext(), url);
+        return new MvNowAsyncTaskLoader(getContext(), url);
     }
 
     @Override

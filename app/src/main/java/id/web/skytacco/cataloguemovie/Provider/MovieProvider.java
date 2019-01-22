@@ -13,7 +13,7 @@ import java.util.Objects;
 import id.web.skytacco.cataloguemovie.Database.MovieHelper;
 
 import static id.web.skytacco.cataloguemovie.Database.MovieContract.AUTHORITY;
-import static id.web.skytacco.cataloguemovie.Database.MovieContract.MovieColumns.CONTENT_URI;
+import static id.web.skytacco.cataloguemovie.Database.MovieContract.CONTENT_URI;
 import static id.web.skytacco.cataloguemovie.Database.MovieContract.MovieColumns.TABLE_MOVIE;
 
 public class MovieProvider  extends ContentProvider {

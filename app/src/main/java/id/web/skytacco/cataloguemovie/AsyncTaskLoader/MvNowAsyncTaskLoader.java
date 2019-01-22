@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import id.web.skytacco.cataloguemovie.BuildConfig;
-import id.web.skytacco.cataloguemovie.MovieItem;
+import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 
 public class MvNowAsyncTaskLoader extends AsyncTaskLoader<ArrayList<MovieItem>> {
     private static final String API_KEY = BuildConfig.TMDB_API_KEY;
