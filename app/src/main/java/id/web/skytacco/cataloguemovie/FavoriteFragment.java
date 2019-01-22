@@ -31,16 +31,15 @@ import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 
 import static android.content.ContentValues.TAG;
 
-public class NowPlayingFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
     public static final String EXTRAS = "extras";
     private static final String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + BuildConfig.TMDB_API_KEY + "&language=en-US";
     private RecyclerView rvCategory;
     private RecyclerView.Adapter adapter;
     private ArrayList<MovieItem> movieLists;
 
-    public NowPlayingFragment() {
+    public FavoriteFragment() {
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +48,7 @@ public class NowPlayingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         rvCategory = view.findViewById(R.id.rv_category);
         rvCategory.setHasFixedSize(true);
         showRecyclerList();
@@ -115,6 +114,5 @@ public class NowPlayingFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()));
         requestQueue.add(stringRequest);
     }
-
 
 }

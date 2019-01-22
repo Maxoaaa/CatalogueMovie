@@ -3,6 +3,8 @@ package id.web.skytacco.cataloguemovie;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -17,6 +19,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import id.web.skytacco.cataloguemovie.Database.MovieContract;
+import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -112,6 +119,26 @@ public class NavigationActivity extends AppCompatActivity
             fragment = new UpComingFragment();
             bundle.putString(NowPlayingFragment.EXTRAS, title);
             fragment.setArguments(bundle);*/
+        } else if (id == R.id.nav_favorite) {
+            ArrayList<MovieItem> movieFavoriteArrayList = new ArrayList<>();
+            Cursor cursor = null;
+                cursor = getContentResolver().query(MovieContract.CONTENT_URI, null,
+                        null, null, null, null);
+                cursor.moveToFirst();
+            MovieItem favorite;
+
+                if (cursor.getCount() > 0) {
+                    do {
+                        favorite = new MovieItem(cursor.getString(cursor.getColumnIndexOrThrow(
+                                MovieContract.MovieColumns.ID_MOVIE)));
+                        movieFavoriteArrayList.add(favorite);
+                        cursor.moveToNext();
+                    } while (!cursor.isAfterLast());
+                }
+            title = getResources().getString(R.string.favorite);
+            fragment = new FavoriteFragment();
+            bundle.putString(NowPlayingFragment.EXTRAS, title);
+            fragment.setArguments(bundle);
         } else if (id == R.id.nav_share) {
             title = "Catalogue Movie";
             Intent si = new Intent(android.content.Intent.ACTION_SEND);

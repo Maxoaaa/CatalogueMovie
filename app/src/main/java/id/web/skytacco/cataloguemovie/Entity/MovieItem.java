@@ -26,6 +26,9 @@ public class MovieItem {
         }
     }
 
+    public MovieItem(String string) {
+    }
+
     public String getMovie_title() {
         return movie_title;
     }

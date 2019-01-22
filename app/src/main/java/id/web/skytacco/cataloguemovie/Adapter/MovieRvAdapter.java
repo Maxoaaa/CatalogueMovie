@@ -75,7 +75,13 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
         holder.btnShare.setOnClickListener(new ItemClickSupport(position, new ItemClickSupport.OnItemClickCallback() {
             @Override
             public void onItemClicked(View view, int position) {
-                Toast.makeText(context, "Share:" + itemList.getMovie_title(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Share:" + itemList.getMovie_title(), Toast.LENGTH_SHORT).show();
+                //itemView.getContext().startActivity(si);
+                Intent si = new Intent(android.content.Intent.ACTION_SEND);
+                si.setType("text/plain");
+                si.putExtra(android.content.Intent.EXTRA_SUBJECT, "Handoyo Oficial");
+                si.putExtra(android.content.Intent.EXTRA_TEXT, "Dapatkan Informasi tentang Film "+itemList.getMovie_title()+" dan Lainnya. Kunjungi https://skytacco.web.id/ \n atau hubungi email REALTH99@GMAIL.COM");
+                context.startActivity(Intent.createChooser(si, "Share via"));
             }
         }));
 
