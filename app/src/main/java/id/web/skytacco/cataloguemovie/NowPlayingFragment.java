@@ -24,8 +24,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
+import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 
 import static android.content.ContentValues.TAG;
 
@@ -71,6 +73,7 @@ public class NowPlayingFragment extends Fragment {
     }
 
     private void ambilDataAPI() {
+        //progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url, new Response.Listener<String>() {
             @Override
@@ -94,21 +97,21 @@ public class NowPlayingFragment extends Fragment {
                     rvCategory.setAdapter(adapter);
 
                 } catch (JSONException e) {
-
                     e.printStackTrace();
                 }
+                //progressBar.setVisibility(View.GONE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                Toast.makeText(getActivity(), "Error" + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Error, No Internet Connection Access", Toast.LENGTH_SHORT).show();
                 //ambilDataAPI();
+                //progressBar.setVisibility(View.GONE);
 
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()));
         requestQueue.add(stringRequest);
     }
 

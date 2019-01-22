@@ -15,7 +15,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
-import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MvComingAsyncTaskLoader;
+import id.web.skytacco.cataloguemovie.Entity.MovieItem;
+import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MovieComingAsyncTaskLoader;
 
 public class UpComingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
     public static final String EXTRAS = "extras";

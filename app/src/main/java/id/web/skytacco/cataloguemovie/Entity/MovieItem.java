@@ -1,4 +1,4 @@
-package id.web.skytacco.cataloguemovie;
+package id.web.skytacco.cataloguemovie.Entity;
 
 import org.json.JSONObject;
 
@@ -24,6 +24,9 @@ public class MovieItem {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public MovieItem(String string) {
     }
 
     public String getMovie_title() {

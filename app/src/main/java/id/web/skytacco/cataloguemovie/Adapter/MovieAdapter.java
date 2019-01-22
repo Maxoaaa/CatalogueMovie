@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import id.web.skytacco.cataloguemovie.MovieItem;
+import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 import id.web.skytacco.cataloguemovie.R;
 
 public class MovieAdapter extends BaseAdapter {
@@ -116,8 +116,8 @@ public class MovieAdapter extends BaseAdapter {
         //holder.txtDate.setText(ambilDate);
 
         //proses untuk memunculkan gambar dgn ukuran w154
-        Picasso.get().load("http://image.tmdb.org/t/p/w154/" +
-                miawData.get(position).getMovie_image())
+        Picasso.get()
+                .load("http://image.tmdb.org/t/p/w154/" + miawData.get(position).getMovie_image())
                 .placeholder(context.getResources().getDrawable(R.mipmap.ic_launcher2_round))
                 .error(context.getResources().getDrawable(R.mipmap.ic_launcher2_round))
                 .into(holder.imgPoster);

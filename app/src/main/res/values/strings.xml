@@ -29,6 +29,7 @@
     <string name="now_playing">Now Playing</string>
     <string name="upcoming">Up Coming</string>
     <string name="image_movie">image movie</string>
-    <string name="favorite">favorite</string>
+    <string name="favorite">Favorite</string>
+    <string name="image_poster">Image Poster</string>
     <string name="desc_about">You are looking for an interesting movie in the theater and start looking for it, but you will be late, will you go to work or to a place or to an important meeting? Without panic: Bats are the solution for you! Find a list of \'Movies to watch\' in the application, and from there you can find them at any time: at night, on weekends, during leisure time, alone and with friends.</string>
 </resources>
