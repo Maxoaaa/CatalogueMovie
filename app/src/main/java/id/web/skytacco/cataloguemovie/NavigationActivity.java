@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import id.web.skytacco.cataloguemovie.Database.MovieContract;
 import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 
+import static id.web.skytacco.cataloguemovie.Database.MovieContract.MovieColumns.ID_MOVIE;
+
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -122,19 +124,17 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_favorite) {
             ArrayList<MovieItem> movieFavoriteArrayList = new ArrayList<>();
             Cursor cursor = null;
-                cursor = getContentResolver().query(MovieContract.CONTENT_URI, null,
+            cursor = getContentResolver().query(MovieContract.CONTENT_URI, null,
                         null, null, null, null);
-                cursor.moveToFirst();
+            cursor.moveToFirst();
             MovieItem favorite;
-
-                if (cursor.getCount() > 0) {
-                    do {
-                        favorite = new MovieItem(cursor.getString(cursor.getColumnIndexOrThrow(
-                                MovieContract.MovieColumns.ID_MOVIE)));
+            if (cursor.getCount() > 0) {
+                do {
+                    favorite = new MovieItem(cursor.getString(cursor.getColumnIndexOrThrow(ID_MOVIE)));
                         movieFavoriteArrayList.add(favorite);
                         cursor.moveToNext();
-                    } while (!cursor.isAfterLast());
-                }
+                } while (!cursor.isAfterLast());
+            }
             title = getResources().getString(R.string.favorite);
             fragment = new FavoriteFragment();
             bundle.putString(NowPlayingFragment.EXTRAS, title);

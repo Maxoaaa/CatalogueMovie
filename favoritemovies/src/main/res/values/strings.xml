@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">FavoriteMovies</string>
+    <string name="favorite">favorite</string>
+    <string name="share">Share</string>
+    <string name="image_movie">image movie</string>
+    <string name="poster">poster</string>
+    <string name="tanggal">29–10–2017</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="overview">Overview</string>
+    <string name="overview_content">Overview Content</string>
+    <string name="favorite2">UnFavorite</string>
 </resources>
