@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Splashscreen"
+            android:name=".Base.Activity.Splashscreen"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/Splashscreen">
@@ -27,13 +27,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Base.Activity.MainActivity"
             android:label="Find Your Movie" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".Base.Activity.DetailActivity"
             android:label="Detail Movie" />
         <activity
-            android:name=".NavigationActivity"
+            android:name=".Base.Activity.NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
         <provider

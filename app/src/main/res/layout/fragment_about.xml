@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".AboutFragment"
+    tools:context=".Base.Fragment.AboutFragment"
     tools:ignore="MissingDefaultResource">
 
     <de.hdodenhof.circleimageview.CircleImageView

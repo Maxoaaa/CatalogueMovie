@@ -54,6 +54,7 @@ public class DetailActivity extends AppCompatActivity {
         String overview = getIntent().getStringExtra(EXTRA_OVERVIEW);
         final String image = getIntent().getStringExtra(EXTRA_IMAGE);
         String datee = getIntent().getStringExtra(EXTRA_DATE);
+        list = getIntent().getParcelableExtra("movie_detail");
 
         TextView txtTitle = findViewById(R.id.txtMovieTitle);
         TextView txtOverview = findViewById(R.id.TxtOverviewContent);
@@ -73,12 +74,11 @@ public class DetailActivity extends AppCompatActivity {
         //pass value using set function
         txtTitle.setText(title);
         txtOverview.setText(overview);
-        Picasso.get().load("http://image.tmdb.org/t/p/original/" + image)
+        /*Picasso.get().load("http://image.tmdb.org/t/p/w154/" + image)
                 .placeholder(R.mipmap.placeholder_round)
                 .error(R.mipmap.placeholder_round)
-                .into(imgPoster);
+                .into(imgPoster);*/
 
-        list = getIntent().getParcelableExtra("movie_detail");
         btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +86,8 @@ public class DetailActivity extends AppCompatActivity {
                     ContentValues mContentValues = new ContentValues();
                     mContentValues.put(MovieContract.MovieColumns.ID_MOVIE, list.getId().toString());
                     mContentValues.put(MovieContract.MovieColumns.TITLE_MOVIE, list.getMovie_title());
+                    mContentValues.put(MovieContract.MovieColumns.DATE_MOVIE, list.getMovie_date());
+                    mContentValues.put(MovieContract.MovieColumns.DESC_MOVIE, list.getMovie_description());
                     getContentResolver().insert(MovieContract.CONTENT_URI, mContentValues);
 
                     btnFavorite.setText(getResources().getString(R.string.favorite2));

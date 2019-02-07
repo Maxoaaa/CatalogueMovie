@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import id.web.skytacco.cataloguemovie.DetailActivity;
+import id.web.skytacco.cataloguemovie.Base.Activity.DetailActivity;
 import id.web.skytacco.cataloguemovie.Listener.ItemClickSupport;
 import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 import id.web.skytacco.cataloguemovie.R;

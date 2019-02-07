@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onResume();
         if (MovieLists != null) {
             MovieLists.clear();
-            adapter.setMovieResult(MovieLists);
+            //adapter.setMovieResult(MovieLists);
             rv_category.setAdapter(adapter);
         }
         getSupportLoaderManager().restartLoader(MOVIE_ID, null, this);
