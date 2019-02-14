@@ -1,8 +1,12 @@
 package id.web.skytacco.cataloguemovie.Entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONObject;
 
-public class MovieItem {
+public class MovieItem implements Parcelable {
+    private String id;
     private String movie_title;
     private String movie_description;
     private String movie_date;
@@ -26,6 +30,14 @@ public class MovieItem {
     }
 
     public MovieItem(String string) {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getMovie_title() {
@@ -59,4 +71,39 @@ public class MovieItem {
     public void setMovie_image(String movie_image) {
         this.movie_image = movie_image;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.movie_title);
+        dest.writeString(this.movie_description);
+        dest.writeString(this.movie_date);
+        dest.writeString(this.movie_image);
+    }
+
+    protected MovieItem(Parcel in) {
+        this.id = in.readString();
+        this.movie_title = in.readString();
+        this.movie_description = in.readString();
+        this.movie_date = in.readString();
+        this.movie_image = in.readString();
+    }
+
+    public static final Parcelable.Creator<MovieItem> CREATOR = new Parcelable.Creator<MovieItem>() {
+        @Override
+        public MovieItem createFromParcel(Parcel source) {
+            return new MovieItem(source);
+        }
+
+        @Override
+        public MovieItem[] newArray(int size) {
+            return new MovieItem[size];
+        }
+    };
 }

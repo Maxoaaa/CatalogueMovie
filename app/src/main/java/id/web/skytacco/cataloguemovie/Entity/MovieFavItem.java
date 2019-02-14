@@ -5,10 +5,12 @@ import android.os.Parcelable;
 
 public class MovieFavItem implements Parcelable {
     private String id;
-    private String title;
-    private String description;
-    private String date;
-
+    private String movie_title;
+    private String movie_description;
+    private String movie_date;
+    private String movie_image;
+    public MovieFavItem(String string) {
+    }
     public String getId() {
         return id;
     }
@@ -17,28 +19,36 @@ public class MovieFavItem implements Parcelable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMovie_title() {
+        return movie_title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMovie_title(String movie_title) {
+        this.movie_title = movie_title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMovie_description() {
+        return movie_description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMovie_description(String movie_description) {
+        this.movie_description = movie_description;
     }
 
-    public String getDate() {
-        return date;
+    public String getMovie_date() {
+        return movie_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setMovie_date(String movie_date) {
+        this.movie_date = movie_date;
+    }
+
+    public String getMovie_image() {
+        return movie_image;
+    }
+
+    public void setMovie_image(String movie_image) {
+        this.movie_image = movie_image;
     }
 
     @Override
@@ -49,19 +59,21 @@ public class MovieFavItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
-        dest.writeString(this.title);
-        dest.writeString(this.description);
-        dest.writeString(this.date);
+        dest.writeString(this.movie_title);
+        dest.writeString(this.movie_description);
+        dest.writeString(this.movie_date);
+        dest.writeString(this.movie_image);
     }
 
     public MovieFavItem() {
     }
 
-    private MovieFavItem(Parcel in) {
+    public MovieFavItem(Parcel in) {
         this.id = in.readString();
-        this.title = in.readString();
-        this.description = in.readString();
-        this.date = in.readString();
+        this.movie_title = in.readString();
+        this.movie_description = in.readString();
+        this.movie_date = in.readString();
+        this.movie_image = in.readString();
     }
 
     public static final Parcelable.Creator<MovieFavItem> CREATOR = new Parcelable.Creator<MovieFavItem>() {

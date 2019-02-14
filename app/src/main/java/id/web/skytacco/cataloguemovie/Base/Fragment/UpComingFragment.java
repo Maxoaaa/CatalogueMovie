@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
 import id.web.skytacco.cataloguemovie.AsyncTaskLoader.MvNowAsyncTaskLoader;
 import id.web.skytacco.cataloguemovie.Entity.MovieItem;
@@ -22,7 +24,8 @@ import id.web.skytacco.cataloguemovie.R;
 public class UpComingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<MovieItem>> {
     public static final String EXTRAS = "extras";
     private static final String url = "upcoming";
-    private RecyclerView rvCategory;
+    @BindView(R.id.rv_category2)
+    RecyclerView rvCategory;
     private ArrayList<MovieItem> movieLists;
     private Activity activity;
 
@@ -44,7 +47,7 @@ public class UpComingFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_up_coming, container, false);
-        rvCategory = view.findViewById(R.id.rv_category2);
+        ButterKnife.bind(this, view);
         rvCategory.setHasFixedSize(true);
         rvCategory.setLayoutManager(new LinearLayoutManager(getContext()));
 

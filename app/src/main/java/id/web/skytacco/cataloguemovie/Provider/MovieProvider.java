@@ -96,11 +96,9 @@ public class MovieProvider  extends ContentProvider {
                 deleted = 0;
                 break;
         }
-
         if (deleted > 0) {
             Objects.requireNonNull(getContext()).getContentResolver().notifyChange(uri, null);
         }
-
         return deleted;
     }
 
@@ -115,7 +113,6 @@ public class MovieProvider  extends ContentProvider {
                 updated = 0;
                 break;
         }
-
         if (updated > 0) {
             Objects.requireNonNull(getContext()).getContentResolver().notifyChange(uri, null);
         }

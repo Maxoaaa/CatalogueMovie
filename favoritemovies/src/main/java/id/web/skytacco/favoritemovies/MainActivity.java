@@ -92,25 +92,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return list;
     }
 
-    /*private void getFavoriteMovies(String id) {
-        movieService = MovieClient.getClient().create(MovieInterface.class);
-        movieResultCall = movieService.getMovieById(id, API_KEY);
-
-        movieResultCall.enqueue(new Callback<MovieResult>() {
-            @Override
-            public void onResponse(@NonNull Call<MovieItem> call, @NonNull Response<MovieResult> response) {
-                movieResults.add(response.body());
-                adapter.setMovieResult(movieResults);
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<MovieResult> call, @NonNull Throwable t) {
-                movieResults = null;
-            }
-        });
-    }*/
     private void ambilDataAPI(String id) {
         //progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,

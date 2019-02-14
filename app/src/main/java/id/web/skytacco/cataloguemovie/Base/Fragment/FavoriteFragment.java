@@ -1,9 +1,14 @@
 package id.web.skytacco.cataloguemovie.Base.Fragment;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,36 +31,43 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import id.web.skytacco.cataloguemovie.Adapter.MovieRvAdapter;
 import id.web.skytacco.cataloguemovie.BuildConfig;
 import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 import id.web.skytacco.cataloguemovie.R;
 
 import static android.content.ContentValues.TAG;
+import static id.web.skytacco.cataloguemovie.Database.MovieContract.CONTENT_URI;
+import static id.web.skytacco.cataloguemovie.Database.MovieContract.MovieColumns.ID_MOVIE;
 
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String EXTRAS = "extras";
     private static final String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + BuildConfig.TMDB_API_KEY + "&language=en-US";
-    private RecyclerView rvCategory;
-    private RecyclerView.Adapter adapter;
-    private ArrayList<MovieItem> movieLists;
+    @BindView(R.id.rv_category)
+    RecyclerView rvCategory;
 
+    MovieRvAdapter adapter;
+    ArrayList<MovieItem> movieLists;
+
+    private final int MOVIE_ID = 110;
     public FavoriteFragment() {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        rvCategory = view.findViewById(R.id.rv_category);
-        rvCategory.setHasFixedSize(true);
+        ButterKnife.bind(this, view);
         showRecyclerList();
-        movieLists = new ArrayList<>();
-        ambilDataAPI();
+
+        getActivity().getSupportLoaderManager().initLoader(MOVIE_ID, null, this);
         return view;
     }
 
@@ -64,19 +76,53 @@ public class FavoriteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null) {
             String page = getArguments().getString(EXTRAS);
-
             Log.e(TAG, "onCreateView: halaman fragment " + page);
         }
     }
 
-    private void showRecyclerList() {
-        rvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        movieLists = new ArrayList<>();
+        return new CursorLoader(getContext(), CONTENT_URI, null, null, null, null);
     }
 
-    private void ambilDataAPI() {
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        movieLists = getItem(data);
+        for (MovieItem m : movieLists) {
+            ambilDataAPI(m.getId());
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        //movieLists = getItem(null);
+    }
+    private void showRecyclerList() {
+        rvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvCategory.setHasFixedSize(true);
+        rvCategory.setItemAnimator(new DefaultItemAnimator());
+    }
+    private ArrayList<MovieItem> getItem(Cursor cursor) {
+        ArrayList<MovieItem> list = new ArrayList<>();
+        cursor.moveToFirst();
+        MovieItem favorite;
+        if (cursor.getCount() > 0) {
+            do {
+                favorite = new MovieItem(cursor.getString(cursor.getColumnIndexOrThrow(ID_MOVIE)));
+                list.add(favorite);
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        }
+        return list;
+    }
+    private void ambilDataAPI(String id) {
         //progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                url, new Response.Listener<String>() {
+                "https://api.themoviedb.org/3/movie/"+ id +"?api_key=" + BuildConfig.TMDB_API_KEY + "&language=en-US",
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -97,7 +143,7 @@ public class FavoriteFragment extends Fragment {
 
                     adapter = new MovieRvAdapter(movieLists, getActivity());
                     rvCategory.setAdapter(adapter);
-
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
