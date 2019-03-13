@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -22,9 +21,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import id.web.skytacco.cataloguemovie.Base.Activity.DetailActivity;
-import id.web.skytacco.cataloguemovie.Listener.ItemClickSupport;
 import id.web.skytacco.cataloguemovie.Entity.MovieItem;
+import id.web.skytacco.cataloguemovie.Listener.ItemClickSupport;
 import id.web.skytacco.cataloguemovie.R;
 
 public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHolder> {
@@ -74,12 +75,6 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
                 .placeholder(R.mipmap.ic_launcher2_round)
                 .into(holder.poster);
 
-        holder.btnFavorite.setOnClickListener(new ItemClickSupport(position, new ItemClickSupport.OnItemClickCallback() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                Toast.makeText(context, "Favorite Success: ", Toast.LENGTH_SHORT).show();
-            }
-        }));
 
         holder.btnShare.setOnClickListener(new ItemClickSupport(position, new ItemClickSupport.OnItemClickCallback() {
             @Override
@@ -93,7 +88,19 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
                 context.startActivity(Intent.createChooser(si, "Share via"));
             }
         }));
-
+        holder.btnDetail.setOnClickListener(new ItemClickSupport(position, new ItemClickSupport.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                MovieItem itemFilmList = movieLists.get(position);
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_TITLE, itemFilmList.getMovie_title());
+                intent.putExtra(DetailActivity.EXTRA_OVERVIEW, itemFilmList.getMovie_description());
+                intent.putExtra(DetailActivity.EXTRA_DATE, itemFilmList.getMovie_date());
+                intent.putExtra(DetailActivity.EXTRA_IMAGE, itemFilmList.getMovie_image());
+                intent.putExtra("DETAILL", itemFilmList);
+                context.startActivity(intent);
+            }
+        }));
         holder.cv_selected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +110,7 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
                 intent.putExtra(DetailActivity.EXTRA_OVERVIEW, itemFilmList.getMovie_description());
                 intent.putExtra(DetailActivity.EXTRA_DATE, itemFilmList.getMovie_date());
                 intent.putExtra(DetailActivity.EXTRA_IMAGE, itemFilmList.getMovie_image());
+                intent.putExtra("DETAILL", itemFilmList);
                 context.startActivity(intent);
             }
         });
@@ -114,21 +122,24 @@ public class MovieRvAdapter extends RecyclerView.Adapter<MovieRvAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        //init view objects use butterknife lib
-        TextView title, description, date;
+        @BindView(R.id.txtTitle)
+        TextView title;
+        @BindView(R.id.txtDescription)
+        TextView description;
+        @BindView(R.id.txtDate)
+        TextView date;
+        @BindView(R.id.img_poster)
         ImageView poster;
-        Button btnFavorite, btnShare;
+        @BindView(R.id.btnDetail)
+        Button btnDetail;
+        @BindView(R.id.btnShare)
+        Button btnShare;
+        @BindView(R.id.cv_selected)
         ConstraintLayout cv_selected;
 
         ViewHolder(View view) {
             super(view);
-            title = itemView.findViewById(R.id.txtTitle);
-            description = itemView.findViewById(R.id.txtDescription);
-            date = itemView.findViewById(R.id.txtDate);
-            poster = itemView.findViewById(R.id.img_poster);
-            btnFavorite = itemView.findViewById(R.id.btnFavorit);
-            btnShare = itemView.findViewById(R.id.btnShare);
-            cv_selected = itemView.findViewById(R.id.cv_selected);
+            ButterKnife.bind(this, itemView);
         }
 
     }

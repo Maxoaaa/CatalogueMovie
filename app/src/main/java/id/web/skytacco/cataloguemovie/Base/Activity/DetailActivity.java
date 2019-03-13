@@ -1,9 +1,17 @@
 package id.web.skytacco.cataloguemovie.Base.Activity;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -14,6 +22,8 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import id.web.skytacco.cataloguemovie.Database.MovieContract;
+import id.web.skytacco.cataloguemovie.Entity.MovieItem;
 import id.web.skytacco.cataloguemovie.R;
 
 public class DetailActivity extends AppCompatActivity {
@@ -28,6 +38,8 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtOverview;
     @BindView(R.id.txtDate)
     TextView txtDate;
+    @BindView(R.id.btnFavorite)
+    Button btnFavorite;
     @BindView(R.id.imgposter)
     ImageView imgPoster;
 
@@ -61,6 +73,51 @@ public class DetailActivity extends AppCompatActivity {
                 .placeholder(R.mipmap.ic_launcher2_round)
                 .error(R.mipmap.ic_launcher2_round)
                 .into(imgPoster);
-    }
 
+        final MovieItem itemList = getIntent().getParcelableExtra("DETAILL");
+        if (isFavorite(itemList.getId().toString())) {
+            if (btnFavorite != null) {
+                btnFavorite.setText(getResources().getString(R.string.favorite));
+            }
+        }
+
+        if (btnFavorite != null) {
+            btnFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!isFavorite(itemList.getId().toString())) {
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(MovieContract.MovieColumns.ID_MOVIE, itemList.getId());
+                        contentValues.put(MovieContract.MovieColumns.TITLE_MOVIE, title);
+                        getContentResolver().insert(MovieContract.CONTENT_URI, contentValues);
+                        btnFavorite.setText(getResources().getString(R.string.favorite));
+                        Toast.makeText(getApplicationContext(), "This movie has been add to your favorite" , Toast.LENGTH_SHORT).show();
+                    } else {
+                        Uri uri = MovieContract.CONTENT_URI;
+                        uri = uri.buildUpon().appendPath(itemList.getId()).build();
+                        getContentResolver().delete(uri, null, null);
+                        btnFavorite.setText(getResources().getString(R.string.favorite2));
+                        //Log.v("MovieDetail", "" + uri);
+                        //Log.v("MovieDetail", uri.toString());
+                        Toast.makeText(getApplicationContext(), "This movie has been remove from your favorite", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+    private boolean isFavorite(String id) {
+        String selection = " movie_id = ?";
+        String[] selectionArgs = {id};
+        String[] projection = {MovieContract.MovieColumns.ID_MOVIE};
+        Uri uri = MovieContract.CONTENT_URI;
+        uri = uri.buildUpon().appendPath(id).build();
+
+        Cursor cursor = null;
+        cursor = getContentResolver().query(uri, projection, selection, selectionArgs, null, null);
+
+        assert cursor != null;
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
 }
